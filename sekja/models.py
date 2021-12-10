@@ -10,7 +10,7 @@ from django.forms import ModelForm, widgets
 # https://simpleisbetterthancomplex.com/tutorial/2018/01/18/how-to-implement-multiple-user-types-with-django.html
 
 class UserManager(BaseUserManager):
-   use_in_migrations = True
+   use_in_migrations = False
 
    def _create_user(self, no_KK, password, is_staff, is_superuser, email, **extra_fields):
       #  if not email:
