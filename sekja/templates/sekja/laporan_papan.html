@@ -61,7 +61,7 @@
                </div></a></span> -->
 
                {% for laporan in Laporan %}
-                  <span><a href="{% url 'laporan' laporan.id %}" style="text-decoration-line: none;"><div class="laporan-container text-center p-3 mt-2 border border-primary text-light">
+                  <span><a href="{% url 'laporan' laporan.id %}" style="text-decoration-line: none;"><div class="laporan-container text-center p-3 mt-2 border border-primary text-light bg-primary">
                      <h4>{{ laporan.judul }}</h4> <br>
                      <p>{{ laporan.user.name }} melaporkan: {{ laporan.pesan }}</p>
                   </div></a></span>
