@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "sekja.User"
+AUTH_USER_MODEL = 'sekja.User'
 
 
 # Internationalization
