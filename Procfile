@@ -1,0 +1,1 @@
+web: gunicorn tugasakhir.wsgi --log-file -
