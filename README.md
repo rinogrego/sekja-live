@@ -4,6 +4,6 @@ Tugas Akhir Komputasi Terstruktur Kelas Pak Alhadi Bustamam, Departemen Matemati
 Tahun Ajaran Ganjil 2021/2022
 
 
- Gregorino Al Josan - Kelompok penungguBansos
+Gregorino Al Josan - Kelompok penungguBansos
 
-APLIKASI SEKJA
+## APLIKASI SEKJA
