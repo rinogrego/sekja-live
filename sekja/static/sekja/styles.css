@@ -1,0 +1,7 @@
+.laporan-container {
+   background-color: #0d6efd;
+}
+
+.laporan-container:hover {
+   background-color: lightblue;
+}

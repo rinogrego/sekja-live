@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'sekja/styles.css' %}"> -->
+    <script src="{% static 'sekja/sekja.js' %}"></script>
+</head>
+<body>
+
+    <div class="d-flex justify-content-center align-items-center vh-100 bg-primary">
+
+        <div class="container bg-light w-50 h-50 d-flex flex-column">
+            <div class="row mb-3 mt-2">
+                <h1 style="text-align: center;" id="login-h1-text">Login</h1>
+            </div>
+            {% if message %}
+            <div class="row">
+                <div>{{ message }}</div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    <div class="form-group mb-2">
+                        <input autofocus class="form-control" type="text" name="no_KK" placeholder="Nomor KK">
+                    </div>
+                    <div class="form-group mb-2">
+                        <input class="form-control" type="text" name="status" placeholder="Pengguna" value="2" id="status-user-form" hidden>
+                    </div>
+                    <div class="form-group mb-2">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
+                    <input class="btn btn-primary mt-4" type="submit" value="Login">
+                </form>
+            </div>
+            <div class="row d-flex flex-grow-1 mb-2">
+                <div class="container d-flex align-items-end">
+                    <div class="col-6">
+                        <div id="login-admin-text">
+                            Login as Admin? &nbsp;<a href="#" onclick="login_admin()">Login Admin.</a>
+                        </div>
+                        <div id="login-pengguna-text" style="display: none;">
+                            Login as User? &nbsp;<a href="#" onclick="login_pengguna()">Login Pengguna.</a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        Don't have an account? &nbsp;<a href="{% url 'register' %}">Register here.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+
+
+</body>
+</html>
+
+
+    
+

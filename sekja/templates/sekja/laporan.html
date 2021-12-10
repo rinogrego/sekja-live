@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{{ laporan.judul }}</title>
+   <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+</head>
+<body>
+
+   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+      <div class="container-fluid">
+         <a class="navbar-brand" style="font-size: 24px;">SEKJA</a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 20px;">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'papan_laporan' %}">Papan Laporan</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'jalan' %}">Data Jalan</a>
+               </li>
+            </ul>
+         </div>
+         {% if not request.user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn btn-success me-2">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-light me-2">Register</a>
+         {% else %}
+            <a class="navbar-brand">HALO {{ request.user.name }}! ({{ user_status }})</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger me-2">Logout</a>
+         {% endif %}
+      </div>
+   </nav>
+
+   <div class="komentar-container container p-5">
+      <div class="row text-center text-uppercase mb-5">
+         <h1>{{ laporan.judul }}</h1>
+      </div>
+      <div class="row">
+         <div class="col-md-2"></div>
+         <div class="col-md-2 col-3"><p><b> Jalan: </b><p></div>
+         <div class="col-md-7 col-9"><p> {{ laporan.jalan }} </p></div>
+         <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+         <div class="col-md-2"></div>
+         <div class="col-md-2 col-3"><p><b> Pelapor: </b><p></div>
+         <div class="col-md-7 col-9"><p> {{ laporan.user }} </p></div>
+         <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+         <div class="col-md-2"></div>
+         <div class="col-md-2 col-3"><p><b> Tanggal Laporan: </b><p></div>
+         <div class="col-md-7 col-9"><p> {{ laporan.tanggal_laporan }} </p></div>
+         <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+         <div class="col-md-2"></div>
+         <div class="col-md-2 col-3"><p><b> Status: </b><p></div>
+         <div class="col-md-7 col-9"><p>
+            {% if laporan.status == "W" %}
+               Waiting List
+            {% elif laporan.status == "P" %}
+               On Progress
+            {% elif laporan.status == "S" %}
+               Selesai
+            {% endif %}
+         </p></div>
+         <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+         <div class="col-md-2"></div>
+         <div class="col-md-2 col-3"><p><b> Pesan </b><p></div>
+         <div class="col-md-7 col-9"><p> {{ laporan.pesan }} </p></div>
+         <div class="col-md-2"></div>
+      </div>
+
+      <div class="row mt-5">
+         <div class="lg-md-3"></div>
+         <div class="lg-md-6">
+            
+            <div class="container Komentar-container">
+               {% for komentar in Komentar %}
+               <div class="row p-3">
+                  <div class="container komentar-container border border-info p-4">
+                     {% if komentar.author.status == 1 %}
+                        <div class="row text-danger"><h6>(Admin) {{ komentar.author.name }}, {{ komentar.tanggal }}:</h6></div>
+                     {% elif komentar.author.status == 2 %}
+                        <div class="row text-primary"><h6>{{ komentar.author.name }}, {{ komentar.tanggal }}:</h6></div>
+                     {% endif %}
+                     <div class="row m-1 border-top pt-4">{{ komentar.komentar }}</div>
+                  </div>
+               </div>
+               {% endfor %}
+            </div>
+
+
+            <div class="container buat-komentar-container mt-3">
+               <b>BERIKAN KOMENTAR</b>
+               <form action="{% url 'laporan' laporan.id %}" method="POST">
+                  {% csrf_token %}
+                  {{ form }}
+                  <input class="btn btn-info mt-4" type="submit" value="Komentar">
+               </form>
+            </div>
+         </div>
+         <div class="lg-md-3"></div>
+      </div>
+      
+   </div>
+
+</body>
+</html>

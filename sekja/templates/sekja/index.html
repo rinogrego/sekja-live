@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SEKJA</title>
+   <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+</head>
+<body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+      <div class="container-fluid">
+         <a class="navbar-brand" style="font-size: 24px;">SEKJA</a>
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 20px;">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'papan_laporan' %}">Papan Laporan</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'jalan' %}">Data Jalan</a>
+               </li>
+            </ul>
+         </div>
+         {% if not request.user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn btn-success me-2">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-light me-2">Register</a>
+         {% else %}
+            <a class="navbar-brand">HALO {{ request.user.name }}! ({{ user_status }})</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger me-2">Logout</a>
+         {% endif %}
+      </div>
+   </nav>
+
+   <section class="main-body p-4 ">
+      <div class="container">
+         <div class="welcome-text text-center p-3">
+            <h1>SELAMAT DATANG DI SEKJA!</h1>
+            <h5 class="p-2">Sistem E-Laporan Kondisi Jalan di DKI Jakarta</h5>
+         </div>
+         {% if request.user.status is 2 %} <!-- 1: Admin, 2: Pengguna -->
+            <div class="text mt-4 text-center">
+               Anda menemukan masalah pada jalanan di DKI Jakarta?
+            </div>
+            <div class="row mt-3">
+               <div class="col-md-4"></div>
+               <div class="col-md-4" style="text-align: center;">
+                  <a href="{% url 'buat_laporan' %}" class="btn btn-dark btn-lg w-75">Buat Laporan</a>
+               </div>
+               <div class="col-md-4"></div>
+            </div>
+         {% elif request.user.status is 1 %}
+            <div class="text mt-4 text-center">
+               Halo Admin! Mari Pantau Kondisi Saat Ini!
+            </div>
+            <div class="row mt-3">
+               <div class="col-md-4"></div>
+               <div class="col-md-4" style="text-align: center;">
+                  <a href="{% url 'papan_laporan' %}" class="btn btn-dark btn-lg w-75">Papan Laporan</a>
+               </div>
+               <div class="col-md-4"></div>
+            </div>
+         {% endif %}
+         <div class="info row p-5">
+            <div class="col-6 d-flex">
+               <div class="card bg-primary text-light">
+                  <div class="card-body">
+                    <h4 class="card-title text-center">Apa itu SEKJA?</h4>
+                    <p class="card-text p-2">Sistem e-Laporan Kondisi Jalan di Jakarta (SEKJA) adalah sebuah sarana pengajuan saran/laporan bagi penduduk yang memakai jalan di kota jakarta khususnya pengguna transportasi kepada pemerintah kota jakarta.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-6 d-flex">
+               <div class="card bg-primary text-light">
+                  <div class="card-body">
+                    <h4 class="card-title text-center">Motivasi Kami</h4>
+                    <p class="card-text p-2">Motivasi dalam pembuatan SEKJA sebagai penerapan basis data relasional adalah untuk memudahkan masyarakat dalam melaporkan kondisi jalan di kota jakarta sekaligus memudahkan pemerintah kota jakarta dalam menimbang pengajuan tersebut dengan didukung oleh database jalan yang telah ada sebelumnya.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <footer class="main-footer d-flex align-items-stretch text-light" id="layout-footer" style="display: block; background-color: black;">
+      <div class="container mt-3 pt-4 pb-4">
+        <div class="row">
+
+          <div class="col-6 d-flex justify-content-center align-items-center ">
+            <p class="display-2">SEKJA</p>
+          </div>
+
+          <div class="col-6 d-flex justify-content-center align-items-center ">
+            <p class="display-6">Kelompok penungguBansos</p>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+    
+    
+</body>
+</html>
